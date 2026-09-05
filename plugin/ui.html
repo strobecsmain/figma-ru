@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<style>
+  /* Figma exposes its own theme as CSS variables when the plugin asks for
+     themeColors, so the panel follows light/dark instead of fighting it. The
+     fallbacks are Figma's dark values, which is what most people run. */
+  :root {
+    --bg: var(--figma-color-bg, #1e1e1e);
+    --panel: var(--figma-color-bg-secondary, #2c2c2c);
+    --panel-2: var(--figma-color-bg-tertiary, #383838);
+    --border: var(--figma-color-border, #444);
+    --text: var(--figma-color-text, #fff);
+    --dim: var(--figma-color-text-secondary, #b3b3b3);
+    --blue: var(--figma-color-bg-brand, #0d99ff);
+    --danger: var(--figma-color-text-danger, #ff9f8c);
+    --ok: #6fd39b;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 12px/1.5 Inter, "Segoe UI", system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tabs { display: flex; border-bottom: 1px solid var(--border); flex: none; }
+  .tab {
+    padding: 10px 14px; cursor: pointer; color: var(--dim);
+    border-bottom: 2px solid transparent; user-select: none;
+  }
+  .tab.active { color: var(--text); border-bottom-color: var(--blue); }
+
+  .pane { display: none; flex: 1; min-height: 0; flex-direction: column; }
+  .pane.active { display: flex; }
+
+  #log {
+    flex: 1; min-height: 0; overflow-y: auto; padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .msg { max-width: 92%; padding: 8px 11px; border-radius: 8px; white-space: pre-wrap; word-break: break-word; }
+  .msg.me { align-self: flex-end; background: var(--blue); color: #fff; }
+  .msg.bot { align-self: flex-start; background: var(--panel); border: 1px solid var(--border); }
+  .msg.err { align-self: stretch; background: rgba(242,72,34,.14); color: var(--danger); border: none; }
+  .msg.ok { align-self: stretch; background: rgba(20,174,92,.14); color: var(--ok); border: none; }
+  .hint { color: var(--dim); text-align: center; padding: 24px 16px; }
+
+  .composer { flex: none; border-top: 1px solid var(--border); padding: 10px; }
+  textarea {
+    width: 100%; min-height: 66px; resize: vertical;
+    background: var(--panel); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 8px 10px; font: inherit; outline: none;
+  }
+  textarea:focus { border-color: var(--blue); }
+
+  .row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .row .grow { flex: 1; }
+
+  button {
+    font: inherit; font-weight: 500; height: 30px; padding: 0 14px;
+    border-radius: 6px; border: 1px solid var(--border);
+    background: transparent; color: var(--text); cursor: pointer;
+  }
+  button.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+  button:disabled { opacity: .45; cursor: default; }
+
+  label.check { display: flex; align-items: center; gap: 6px; color: var(--dim); cursor: pointer; }
+  label.check input { accent-color: var(--blue); margin: 0; }
+
+  .settings { padding: 14px; overflow-y: auto; }
+  .field { margin-bottom: 12px; }
+  .field label { display: block; color: var(--dim); margin-bottom: 4px; }
+  input[type=text], input[type=password], select {
+    width: 100%; height: 30px;
+    background: var(--panel); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 0 9px; font: inherit; outline: none;
+  }
+  input:focus, select:focus { border-color: var(--blue); }
+  .note { color: var(--dim); font-size: 11px; margin-top: 10px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <div class="tab active" data-pane="chat">Запрос</div>
+  <div class="tab" data-pane="setup">Ключ и модель</div>
+</div>
+
+<div class="pane active" id="pane-chat">
+  <div id="log">
+    <div class="hint">
+      Опишите, что нужно нарисовать — например,<br>
+      «экран входа для мобильного приложения, тёмная тема».<br><br>
+      Работает на вашем API-ключе, кредиты Figma не тратятся.
+    </div>
+  </div>
+  <div class="composer">
+    <textarea id="prompt" placeholder="Что нарисовать или изменить…"></textarea>
+    <div class="row">
+      <label class="check"><input type="checkbox" id="useSelection"> учитывать выделение</label>
+      <div class="grow"></div>
+      <button class="primary" id="send">Создать</button>
+    </div>
+  </div>
+</div>
+
+<div class="pane settings" id="pane-setup">
+  <div class="field">
+    <label for="provider">Провайдер</label>
+    <select id="provider">
+      <option value="anthropic">Anthropic (Claude)</option>
+      <option value="openai">OpenAI</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="model">Модель</label>
+    <input type="text" id="model" placeholder="claude-sonnet-5">
+  </div>
+  <div class="field">
+    <label for="key">API-ключ</label>
+    <input type="password" id="key" placeholder="sk-…" autocomplete="off">
+  </div>
+  <button class="primary" id="save">Сохранить</button>
+  <div class="note">
+    Ключ хранится только на этом компьютере, в локальном хранилище Figma, и
+    отправляется напрямую выбранному провайдеру. Плагин не обращается ни к каким
+    другим адресам — список разрешённых доменов виден в его манифесте.
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var DEFAULT_MODELS = {
+    anthropic: 'claude-sonnet-5',
+    openai: 'gpt-4o'
+  };
+
+  var el = {
+    log: document.getElementById('log'),
+    prompt: document.getElementById('prompt'),
+    send: document.getElementById('send'),
+    useSelection: document.getElementById('useSelection'),
+    provider: document.getElementById('provider'),
+    model: document.getElementById('model'),
+    key: document.getElementById('key'),
+    save: document.getElementById('save')
+  };
+
+  var settings = { provider: 'anthropic', model: DEFAULT_MODELS.anthropic, key: '' };
+  var pendingContext = null;
+  var busy = false;
+
+  // ---- tabs ----
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelector('.tab.active').classList.remove('active');
+      document.querySelector('.pane.active').classList.remove('active');
+      tab.classList.add('active');
+      document.getElementById('pane-' + tab.dataset.pane).classList.add('active');
+    });
+  });
+
+  function post(message) { parent.postMessage({ pluginMessage: message }, '*'); }
+
+  function say(text, kind) {
+    var hint = el.log.querySelector('.hint');
+    if (hint) hint.remove();
+    var div = document.createElement('div');
+    div.className = 'msg ' + (kind || 'bot');
+    div.textContent = text;
+    el.log.appendChild(div);
+    el.log.scrollTop = el.log.scrollHeight;
+    return div;
+  }
+
+  // ---- the contract the model has to follow ----
+  var SYSTEM = [
+    'Ты помощник дизайнера, который строит макеты в Figma.',
+    'Отвечай ТОЛЬКО одним JSON-объектом. Без пояснений, без markdown, без ```.',
+    '',
+    'Схема узла:',
+    '{',
+    '  "type": "frame" | "text" | "rect" | "ellipse",',
+    '  "name": строка — понятное имя слоя,',
+    '  "layout": "vertical" | "horizontal" | "none"  (только для frame),',
+    '  "gap": число, "padding": число (или paddingTop/Bottom/Left/Right),',
+    '  "align": "min"|"center"|"max", "justify": "min"|"center"|"max",',
+    '  "width": число, "height": число, "grow": true, "stretch": true,',
+    '  "fill": "#rrggbb" | "none", "stroke": "#rrggbb", "strokeWidth": число,',
+    '  "cornerRadius": число, "opacity": 0..1,',
+    '  "text": строка, "fontSize": число, "fontWeight": "regular"|"medium"|"semibold"|"bold",',
+    '  "color": "#rrggbb", "lineHeight": число, "textAlign": "left"|"center"|"right",',
+    '  "children": [ узлы ]',
+    '}',
+    '',
+    'Правила:',
+    '- Корень — всегда frame с явными width и height.',
+    '- Для внутренних контейнеров используй layout + gap + padding, а не координаты.',
+    '- Чтобы элемент растянулся по ширине родителя-vertical, ставь "stretch": true.',
+    '- Весь видимый текст пиши по-русски, если пользователь не просил иначе.',
+    '- Указывай fill у корневого фрейма, иначе он будет прозрачным.',
+    '- Никаких других полей: незнакомые поля игнорируются.'
+  ].join('\n');
+
+  function extractJson(text) {
+    var cleaned = String(text).trim().replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
+    try { return JSON.parse(cleaned); } catch (e) { /* fall through */ }
+    var start = cleaned.indexOf('{');
+    var end = cleaned.lastIndexOf('}');
+    if (start >= 0 && end > start) {
+      return JSON.parse(cleaned.slice(start, end + 1));
+    }
+    throw new Error('Модель ответила не JSON-ом.');
+  }
+
+  function callAnthropic(userText) {
+    return fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': settings.key,
+        'anthropic-version': '2023-06-01',
+        // Required for calls made straight from a browser context, which is
+        // what a Figma plugin's UI iframe is.
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: settings.model || DEFAULT_MODELS.anthropic,
+        max_tokens: 8000,
+        system: SYSTEM,
+        messages: [{ role: 'user', content: userText }]
+      })
+    }).then(readResponse).then(function (data) {
+      var parts = (data.content || []).filter(function (p) { return p.type === 'text'; });
+      if (!parts.length) throw new Error('Пустой ответ модели.');
+      return parts.map(function (p) { return p.text; }).join('');
+    });
+  }
+
+  function callOpenAI(userText) {
+    return fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': 'Bearer ' + settings.key
+      },
+      body: JSON.stringify({
+        model: settings.model || DEFAULT_MODELS.openai,
+        messages: [
+          { role: 'system', content: SYSTEM },
+          { role: 'user', content: userText }
+        ],
+        response_format: { type: 'json_object' }
+      })
+    }).then(readResponse).then(function (data) {
+      var choice = (data.choices || [])[0];
+      if (!choice || !choice.message) throw new Error('Пустой ответ модели.');
+      return choice.message.content;
+    });
+  }
+
+  function readResponse(response) {
+    return response.text().then(function (body) {
+      if (response.ok) {
+        try { return JSON.parse(body); }
+        catch (e) { throw new Error('Не удалось разобрать ответ провайдера.'); }
+      }
+      var detail = body;
+      try {
+        var parsed = JSON.parse(body);
+        detail = (parsed.error && (parsed.error.message || parsed.error.type)) || body;
+      } catch (e) { /* keep the raw body */ }
+
+      if (response.status === 401) throw new Error('Ключ не принят (401). Проверьте API-ключ.');
+      if (response.status === 429) throw new Error('Лимит запросов у провайдера (429). Попробуйте позже.');
+      if (response.status === 404) throw new Error('Модель не найдена (404). Проверьте её название.');
+      throw new Error('Ошибка ' + response.status + ': ' + detail);
+    });
+  }
+
+  function send() {
+    if (busy) return;
+    var text = el.prompt.value.trim();
+    if (!text) return;
+
+    if (!settings.key) {
+      say('Сначала укажите API-ключ на вкладке «Ключ и модель».', 'err');
+      return;
+    }
+
+    busy = true;
+    el.send.disabled = true;
+    say(text, 'me');
+    el.prompt.value = '';
+    var status = say('Думаю…');
+
+    var prepare = el.useSelection.checked
+      ? new Promise(function (resolve) {
+          pendingContext = resolve;
+          post({ type: 'get-context' });
+          setTimeout(function () { if (pendingContext) { pendingContext = null; resolve(null); } }, 3000);
+        })
+      : Promise.resolve(null);
+
+    prepare.then(function (context) {
+      var userText = text;
+      if (context && context.selection) {
+        userText += '\n\nТекущее выделение в Figma (для контекста):\n' +
+          JSON.stringify(context.selection).slice(0, 4000);
+      }
+      return settings.provider === 'openai' ? callOpenAI(userText) : callAnthropic(userText);
+    }).then(function (raw) {
+      var spec = extractJson(raw);
+      status.remove();
+      say('Строю макет…');
+      post({ type: 'render', spec: spec });
+    }).catch(function (error) {
+      status.remove();
+      say(error && error.message ? error.message : String(error), 'err');
+      busy = false;
+      el.send.disabled = false;
+    });
+  }
+
+  el.send.addEventListener('click', send);
+  el.prompt.addEventListener('keydown', function (event) {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') send();
+  });
+
+  el.provider.addEventListener('change', function () {
+    if (!el.model.value || el.model.value === DEFAULT_MODELS.anthropic || el.model.value === DEFAULT_MODELS.openai) {
+      el.model.value = DEFAULT_MODELS[el.provider.value];
+    }
+  });
+
+  el.save.addEventListener('click', function () {
+    settings = {
+      provider: el.provider.value,
+      model: el.model.value.trim() || DEFAULT_MODELS[el.provider.value],
+      key: el.key.value.trim()
+    };
+    post({ type: 'save-settings', settings: settings });
+  });
+
+  window.onmessage = function (event) {
+    var message = event.data && event.data.pluginMessage;
+    if (!message) return;
+
+    if (message.type === 'settings') {
+      if (message.settings) {
+        settings = message.settings;
+        el.provider.value = settings.provider || 'anthropic';
+        el.model.value = settings.model || DEFAULT_MODELS[el.provider.value];
+        el.key.value = settings.key || '';
+      } else {
+        el.model.value = DEFAULT_MODELS.anthropic;
+      }
+      return;
+    }
+
+    if (message.type === 'settings-saved') {
+      say('Настройки сохранены.', 'ok');
+      document.querySelector('.tab[data-pane="chat"]').click();
+      return;
+    }
+
+    if (message.type === 'context') {
+      if (pendingContext) { var resolve = pendingContext; pendingContext = null; resolve(message); }
+      return;
+    }
+
+    if (message.type === 'rendered') {
+      say('Готово: ' + message.name, 'ok');
+      busy = false;
+      el.send.disabled = false;
+      return;
+    }
+
+    if (message.type === 'error') {
+      say(message.message, 'err');
+      busy = false;
+      el.send.disabled = false;
+    }
+  };
+
+  post({ type: 'load-settings' });
+})();
+</script>
+</body>
+</html>

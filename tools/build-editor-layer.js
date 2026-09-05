@@ -17,6 +17,7 @@ const SRC = path.join(__dirname, '..', 'src', 'web');
 const ENGINE = path.join(SRC, 'engine.js');
 const PHRASES = path.join(SRC, 'phrases.json');
 const CHROME_ONLY = path.join(SRC, 'chrome-only.json');
+const RAIL = path.join(SRC, 'rail-button.js');
 
 /** Must match engine.js's normalise() — see the collision check below. */
 function normalise(text) {
@@ -116,11 +117,16 @@ function buildEditorLayer() {
     .replace('__PHRASES__', () => literal(phrases))
     .replace('__CHROME_ONLY__', () => literal(chromeOnly));
 
-  // The host preload is not guaranteed to end in a semicolon, and this file
-  // starts with a comment followed by `(`. Without the leading `;` the two would
+  // The rail button is independent of the dictionary and fails silently on its
+  // own, so it is appended rather than woven in: either half can be removed
+  // without touching the other.
+  const rail = fs.readFileSync(RAIL, 'utf8');
+
+  // The host preload is not guaranteed to end in a semicolon, and these files
+  // start with a comment followed by `(`. Without the leading `;` they would
   // splice into a call expression.
   return {
-    code: `;\n${code}`,
+    code: `;\n${code}\n;\n${rail}`,
     phraseCount: keys.size,
     chromeOnlyCount: chromeOnly.length,
   };

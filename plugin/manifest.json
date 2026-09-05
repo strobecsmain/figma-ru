@@ -1,0 +1,16 @@
+{
+  "name": "Свой ассистент",
+  "id": "figma-ru-assistant",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.anthropic.com",
+      "https://api.openai.com"
+    ],
+    "reasoning": "Обращается напрямую к выбранной вами модели по вашему API-ключу. Никаких других адресов плагин не использует."
+  }
+}
