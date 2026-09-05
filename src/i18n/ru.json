@@ -1,0 +1,986 @@
+{
+  "desktop.dialogs.about.app_name_and_version": {
+    "string": "{appName} для компьютера, версия {version}"
+  },
+  "desktop.dialogs.about.copyright": {
+    "string": "© {year} Figma, Inc."
+  },
+  "desktop.dialogs.about.optimized_for_apple_silicon": {
+    "string": "Оптимизировано для Apple Silicon."
+  },
+  "desktop.dialogs.about.title": {
+    "string": "О программе {appName}"
+  },
+  "desktop.dialogs.arm_translation.body": {
+    "string": "Эта версия {appName} не предназначена для работы на Apple Silicon. Загрузите {appName} заново со страницы загрузок Figma, чтобы установить подходящую версию."
+  },
+  "desktop.dialogs.arm_translation.body_windows": {
+    "string": "Эта версия {appName} не предназначена для работы на Windows на ARM. Загрузите {appName} заново со страницы загрузок Figma, чтобы установить подходящую версию."
+  },
+  "desktop.dialogs.arm_translation.download_button": {
+    "string": "Открыть страницу загрузок"
+  },
+  "desktop.dialogs.arm_translation.title": {
+    "string": "Обновите {appName}"
+  },
+  "desktop.dialogs.blocked_by_proxy.body": {
+    "string": "Скорее всего, это происходит потому, что в вашей корпоративной сети используется прокси-сервер.{lineBreak}Проблему можно решить, добавив используемые прокси-сервером источники за пределами Figma в настройку AllowedOriginHosts. Нажмите кнопку ниже, чтобы открыть Справочный центр."
+  },
+  "desktop.dialogs.blocked_by_proxy.title": {
+    "string": "Переход на «{hostname}» заблокирован"
+  },
+  "desktop.dialogs.button.cancel": {
+    "string": "Отмена"
+  },
+  "desktop.dialogs.button.got_it": {
+    "string": "Понятно"
+  },
+  "desktop.dialogs.button.ok": {
+    "string": "ОК"
+  },
+  "desktop.dialogs.button.quit": {
+    "string": "Выйти"
+  },
+  "desktop.dialogs.button.restart": {
+    "string": "Перезапустить"
+  },
+  "desktop.dialogs.button.save": {
+    "string": "Сохранить"
+  },
+  "desktop.dialogs.button.try_again": {
+    "string": "Повторить"
+  },
+  "desktop.dialogs.button.visit_help_center": {
+    "string": "Открыть Справочный центр"
+  },
+  "desktop.dialogs.checkbox.do_not_ask_me_again": {
+    "string": "Больше не спрашивать"
+  },
+  "desktop.dialogs.close_tab_import_in_progress.body": {
+    "string": "Закрытие этой вкладки остановит все текущие и ожидающие импорты."
+  },
+  "desktop.dialogs.close_tab_import_in_progress.close_tab": {
+    "string": "Закрыть вкладку"
+  },
+  "desktop.dialogs.close_tab_import_in_progress.keep_tab_open": {
+    "string": "Оставить вкладку открытой"
+  },
+  "desktop.dialogs.close_tab_import_in_progress.title": {
+    "string": "Идёт импорт файла"
+  },
+  "desktop.dialogs.close_tab_unsaved_changes.body": {
+    "string": "При закрытии вкладки изменения не потеряются, но для их синхронизации потребуется подключиться заново."
+  },
+  "desktop.dialogs.close_tab_unsaved_changes.close_tab_button": {
+    "string": "Закрыть вкладку"
+  },
+  "desktop.dialogs.close_tab_unsaved_changes.title": {
+    "string": "Есть несохранённые изменения"
+  },
+  "desktop.dialogs.close_window_unsaved_changes.body": {
+    "string": "Изменения сейчас сохраняются. Если закрыть окно, они будут потеряны."
+  },
+  "desktop.dialogs.close_window_unsaved_changes.close_window_button": {
+    "string": "Закрыть окно и отменить изменения"
+  },
+  "desktop.dialogs.close_window_unsaved_changes.title": {
+    "string": "Отменить несохранённые изменения?"
+  },
+  "desktop.dialogs.confirm_display_capture.body": {
+    "string": "{appName} запрашивает доступ к содержимому вашего экрана и открытых окон. Предоставить доступ к экрану?"
+  },
+  "desktop.dialogs.confirm_display_capture.share_button": {
+    "string": "Предоставить"
+  },
+  "desktop.dialogs.export_failed.title": {
+    "string": "Не удалось экспортировать"
+  },
+  "desktop.dialogs.export_failed_invalid_path.details": {
+    "string": "«{filePath}» — недопустимый путь. Ни один файл не сохранён."
+  },
+  "desktop.dialogs.export_failed_invalid_path.message": {
+    "string": "Не удалось экспортировать"
+  },
+  "desktop.dialogs.invalid_figma_url.body": {
+    "string": "В буфере обмена нет корректной ссылки Figma."
+  },
+  "desktop.dialogs.invalid_figma_url.title": {
+    "string": "Некорректная ссылка Figma"
+  },
+  "desktop.dialogs.log_out_unsaved_changes.body": {
+    "string": "Изменения сейчас сохраняются. Если выйти из аккаунта, они будут потеряны."
+  },
+  "desktop.dialogs.log_out_unsaved_changes.log_out_button": {
+    "string": "Выйти и отменить изменения"
+  },
+  "desktop.dialogs.log_out_unsaved_changes.title": {
+    "string": "Отменить несохранённые изменения?"
+  },
+  "desktop.dialogs.make_local.shared_branch.cancelled_error": {
+    "string": "Подтвердите доверие к общей ветке, прежде чем Figma Make переключится на неё и выполнит команды проекта."
+  },
+  "desktop.dialogs.make_local.shared_branch.detail": {
+    "string": "Figma Make загрузит эту ветку, переключится на неё и выполнит из неё конфигурацию проекта. Продолжайте, только если доверяете приславшему ссылку человеку и содержимому ветки.\n\nВетка: {branch}\nПапка: {directory}"
+  },
+  "desktop.dialogs.make_local.shared_branch.message": {
+    "string": "Открыть эту общую ветку Git и выполнить её команды проекта?"
+  },
+  "desktop.dialogs.make_local.shared_branch.open_button": {
+    "string": "Открыть ветку"
+  },
+  "desktop.dialogs.make_local.shared_branch.title": {
+    "string": "Доверять этой общей ветке?"
+  },
+  "desktop.dialogs.make_local.trust_directory.detail": {
+    "string": "Figma Make может загрузить из этой папки конфигурацию проекта, способную выполнять команды.\n\n{directory}"
+  },
+  "desktop.dialogs.make_local.trust_directory.message": {
+    "string": "Вы доверяете файлам в этой папке?"
+  },
+  "desktop.dialogs.make_local.trust_directory.required_error": {
+    "string": "Подтвердите доверие к этой папке, прежде чем использовать Make Local. Конфигурация проекта в ней может выполнять команды."
+  },
+  "desktop.dialogs.make_local.trust_directory.title": {
+    "string": "Доверять этой папке?"
+  },
+  "desktop.dialogs.make_local.trust_directory.trust_button": {
+    "string": "Доверять папке"
+  },
+  "desktop.dialogs.make_local.trust_git_clone.detail": {
+    "string": "После клонирования Make откроет этот репозиторий. Конфигурация проекта и метаданные Git в нём могут выполнять команды.\n\n{directory}"
+  },
+  "desktop.dialogs.make_local.trust_git_clone.message": {
+    "string": "Вы доверяете этому репозиторию?"
+  },
+  "desktop.dialogs.make_local.trust_git_clone.title": {
+    "string": "Доверять клонированному репозиторию?"
+  },
+  "desktop.dialogs.make_local.trust_git_clone.trust_button": {
+    "string": "Доверять репозиторию"
+  },
+  "desktop.dialogs.merge_close.body": {
+    "string": "Не закрывайте эту вкладку, пока не завершится объединение ветки."
+  },
+  "desktop.dialogs.merge_close.title": {
+    "string": "Подождите, идёт объединение…"
+  },
+  "desktop.dialogs.move_to_applications_folder.body": {
+    "string": "Переместите приложение {appName} в папку «Программы» и повторите попытку.{lineBreak}Если оно уже находится в папке «Программы», перетащите его в другую папку, а затем обратно."
+  },
+  "desktop.dialogs.move_to_applications_folder.title": {
+    "string": "Переместить в папку «Программы»"
+  },
+  "desktop.dialogs.multiple_installations.body": {
+    "string": "У вас установлено несколько копий приложения {appName}. Повторите попытку, удалив другую копию по пути:"
+  },
+  "desktop.dialogs.multiple_installations.remove_other_desktop_app_button": {
+    "string": "Удалить другую копию"
+  },
+  "desktop.dialogs.multiple_installations.title": {
+    "string": "Несколько установок не поддерживается"
+  },
+  "desktop.dialogs.no_update_available.body": {
+    "string": "У вас уже установлена последняя версия {appName}.{lineBreak}Не хватает новой функции? Попробуйте перезагрузить вкладки и проверить ещё раз. Если возникнут другие проблемы, обратитесь в поддержку."
+  },
+  "desktop.dialogs.no_update_available.reload_all_tabs_button": {
+    "string": "Перезагрузить все вкладки"
+  },
+  "desktop.dialogs.no_update_available.title": {
+    "string": "Обновлений нет"
+  },
+  "desktop.dialogs.plugin_request_camera_and_microphone_permission": {
+    "string": "Разрешите доступ к камере и микрофону для {appName} в разделе «Системные настройки» → «Защита и безопасность» → «Конфиденциальность»."
+  },
+  "desktop.dialogs.plugin_request_camera_permission": {
+    "string": "Разрешите доступ к камере для {appName} в разделе «Системные настройки» → «Защита и безопасность» → «Конфиденциальность»."
+  },
+  "desktop.dialogs.plugin_request_microphone_permission": {
+    "string": "Разрешите доступ к микрофону для {appName} в разделе «Системные настройки» → «Защита и безопасность» → «Конфиденциальность»."
+  },
+  "desktop.dialogs.reload_tab_unsaved_changes.body": {
+    "string": "При перезагрузке вкладки изменения не потеряются, но для их синхронизации потребуется подключиться заново."
+  },
+  "desktop.dialogs.reload_tab_unsaved_changes.reload_tab_button": {
+    "string": "Перезагрузить вкладку"
+  },
+  "desktop.dialogs.reload_tab_unsaved_changes.title": {
+    "string": "Есть несохранённые изменения"
+  },
+  "desktop.dialogs.replace_existing_files.details.multiple": {
+    "string": "Уже существует файлов: {numFiles, number, integer}, включая «{fileName}». Замена перезапишет их содержимое."
+  },
+  "desktop.dialogs.replace_existing_files.details.single": {
+    "string": "Файл «{fileName}» уже существует. Замена перезапишет его содержимое."
+  },
+  "desktop.dialogs.replace_existing_files.message": {
+    "string": "{numFiles, plural, one {Заменить существующий файл?} other {Заменить существующие файлы?}}"
+  },
+  "desktop.dialogs.replace_existing_files.replace_button": {
+    "string": "Заменить"
+  },
+  "desktop.dialogs.replace_existing_files.title": {
+    "string": "Замена существующих файлов"
+  },
+  "desktop.dialogs.reset_figma_and_restart.body": {
+    "string": "Данные приложения {appName} будут сброшены, и приложение перезапустится. После этого потребуется снова войти в {appName}."
+  },
+  "desktop.dialogs.reset_figma_and_restart.title": {
+    "string": "Сбросить {appName} и перезапустить?"
+  },
+  "desktop.dialogs.reset_figma_and_restart_failure.body": {
+    "string": "Приложению {appName} не удалось сбросить данные и перезапуститься. Обратитесь за помощью в поддержку."
+  },
+  "desktop.dialogs.reset_figma_and_restart_failure.title": {
+    "string": "Не удалось сбросить {appName}"
+  },
+  "desktop.dialogs.restart_and_save_performance_log_dialog_body": {
+    "string": "После нажатия кнопки «ОК» вам предложат выбрать, куда сохранить файл журнала производительности, затем приложение перезапустится. Через 30 секунд журнал будет сохранён в выбранное вами место."
+  },
+  "desktop.dialogs.restart_required.body": {
+    "string": "Чтобы применить изменения, нужно перезапустить {appName}."
+  },
+  "desktop.dialogs.restart_required.title": {
+    "string": "Перезапустите, чтобы применить изменения"
+  },
+  "desktop.dialogs.save_debug_info_dialog_title": {
+    "string": "Сохранение отладочной информации"
+  },
+  "desktop.dialogs.save_file_failed.details": {
+    "string": "Не удалось сохранить «{filePath}». Остальные файлы сохранены не будут."
+  },
+  "desktop.dialogs.save_file_failed.message": {
+    "string": "Не удалось сохранить файл"
+  },
+  "desktop.dialogs.save_network_log_dialog_body": {
+    "string": "Выполните в Figma то действие, о котором нужны сведения. Через 30 секунд появится запрос на сохранение файла сетевого журнала."
+  },
+  "desktop.dialogs.save_network_log_dialog_title": {
+    "string": "Сохранение сетевого журнала"
+  },
+  "desktop.dialogs.save_performance_log_dialog_body": {
+    "string": "Выполните в Figma то действие, о котором нужны сведения. Через 30 секунд появится запрос на сохранение файла журнала производительности."
+  },
+  "desktop.dialogs.save_performance_log_dialog_title": {
+    "string": "Сохранение журнала производительности"
+  },
+  "desktop.dialogs.update_available.body": {
+    "string": "Новая версия {appName} готова к установке."
+  },
+  "desktop.dialogs.update_available.install_now": {
+    "string": "Установить сейчас"
+  },
+  "desktop.dialogs.update_available.install_on_next_launch": {
+    "string": "Установить при следующем запуске"
+  },
+  "desktop.dialogs.update_available.title": {
+    "string": "Доступно обновление"
+  },
+  "desktop.dialogs.update_error.body": {
+    "string": "Приложению {appName} не удалось установить обновление:"
+  },
+  "desktop.dialogs.update_error.download_update_manually_button": {
+    "string": "Скачать обновление вручную"
+  },
+  "desktop.dialogs.update_error.title": {
+    "string": "Ошибка обновления"
+  },
+  "desktop.dialogs.voice_call_request_microphone_permission": {
+    "string": "Для разговора в Figma Audio нужен доступ к микрофону. Разрешите доступ к микрофону для {appName} в разделе «Системные настройки» → «Защита и безопасность» → «Конфиденциальность» → «Микрофон»."
+  },
+  "desktop.dialogs.write_plugin.choose_plugin_location": {
+    "string": "Выберите расположение папки плагина"
+  },
+  "desktop.dialogs.write_plugin.choose_plugin_name_and_location": {
+    "string": "Выберите имя плагина и расположение папки"
+  },
+  "desktop.errors.loading_screen.error_description": {
+    "string": "Не удалось загрузить Figma"
+  },
+  "desktop.errors.loading_screen.error_message": {
+    "string": "Что-то пошло не так"
+  },
+  "desktop.errors.navigation_failed_description": {
+    "string": "Ошибка перехода на «{url}»: {error}"
+  },
+  "desktop.menu.about": {
+    "string": "О программе {appName}"
+  },
+  "desktop.menu.actions": {
+    "string": "Действия…"
+  },
+  "desktop.menu.add_to_dictionary": {
+    "string": "Добавить в словарь"
+  },
+  "desktop.menu.always_show_tabs_when_presenting": {
+    "string": "Всегда показывать вкладки при демонстрации"
+  },
+  "desktop.menu.arrange_menu": {
+    "string": "Расположение"
+  },
+  "desktop.menu.bring_all_to_front": {
+    "string": "Все окна на передний план"
+  },
+  "desktop.menu.check_for_updates": {
+    "string": "Проверить обновления…"
+  },
+  "desktop.menu.close_tab": {
+    "string": "Закрыть вкладку"
+  },
+  "desktop.menu.close_window": {
+    "string": "Закрыть окно"
+  },
+  "desktop.menu.color_management": {
+    "string": "Управление цветом"
+  },
+  "desktop.menu.color_space_managed": {
+    "string": "С управлением цветом"
+  },
+  "desktop.menu.color_space_menu": {
+    "string": "Цветовое пространство"
+  },
+  "desktop.menu.color_space_srgb": {
+    "string": "sRGB"
+  },
+  "desktop.menu.color_space_unmanaged": {
+    "string": "Без управления цветом"
+  },
+  "desktop.menu.copy": {
+    "string": "Копировать"
+  },
+  "desktop.menu.cut": {
+    "string": "Вырезать"
+  },
+  "desktop.menu.debug_figma_agent": {
+    "string": "Отладка Figma Agent"
+  },
+  "desktop.menu.disable_hardware_acceleration": {
+    "string": "Отключить аппаратное ускорение"
+  },
+  "desktop.menu.edit_menu": {
+    "string": "Правка"
+  },
+  "desktop.menu.empty_placeholder": {
+    "string": "(пусто)"
+  },
+  "desktop.menu.enable_haptic_feedback": {
+    "string": "Включить тактильную отдачу трекпада"
+  },
+  "desktop.menu.export": {
+    "string": "Экспорт…"
+  },
+  "desktop.menu.export_as": {
+    "string": "Экспортировать как…"
+  },
+  "desktop.menu.export_frames_to_pdf": {
+    "string": "Экспортировать фреймы в PDF…"
+  },
+  "desktop.menu.export_selected_slides_to_pdf": {
+    "string": "Экспортировать слайды в PDF…"
+  },
+  "desktop.menu.export_slides_to": {
+    "string": "Экспортировать слайды в…"
+  },
+  "desktop.menu.export_slides_to_pdf": {
+    "string": "Экспортировать все слайды в PDF…"
+  },
+  "desktop.menu.file_menu": {
+    "string": "Файл"
+  },
+  "desktop.menu.graphics_backend": {
+    "string": "Графический движок"
+  },
+  "desktop.menu.graphics_backend_default": {
+    "string": "По умолчанию"
+  },
+  "desktop.menu.help_menu": {
+    "string": "Справка"
+  },
+  "desktop.menu.help_page": {
+    "string": "Страница справки"
+  },
+  "desktop.menu.import": {
+    "string": "Импорт…"
+  },
+  "desktop.menu.import_from_csv": {
+    "string": "Импорт из CSV…"
+  },
+  "desktop.menu.interface_scale_make_larger": {
+    "string": "Увеличить"
+  },
+  "desktop.menu.interface_scale_make_smaller": {
+    "string": "Уменьшить"
+  },
+  "desktop.menu.interface_scale_menu": {
+    "string": "Масштаб интерфейса"
+  },
+  "desktop.menu.interface_scale_percent": {
+    "string": "{interfaceScalePercent} %"
+  },
+  "desktop.menu.interface_scale_reset_to_default": {
+    "string": "Сбросить по умолчанию"
+  },
+  "desktop.menu.legal_summary": {
+    "string": "Правовая информация"
+  },
+  "desktop.menu.loading_placeholder": {
+    "string": "Загрузка…"
+  },
+  "desktop.menu.log_out": {
+    "string": "Выйти из аккаунта"
+  },
+  "desktop.menu.mac_hide": {
+    "string": "Скрыть {appName}"
+  },
+  "desktop.menu.mac_hide_others": {
+    "string": "Скрыть остальные"
+  },
+  "desktop.menu.mac_quit": {
+    "string": "Завершить {appName}"
+  },
+  "desktop.menu.mac_services": {
+    "string": "Службы"
+  },
+  "desktop.menu.mac_unhide": {
+    "string": "Показать все"
+  },
+  "desktop.menu.manage_plugins": {
+    "string": "Управление плагинами…"
+  },
+  "desktop.menu.minimize": {
+    "string": "Свернуть"
+  },
+  "desktop.menu.new_file": {
+    "string": "Новый файл"
+  },
+  "desktop.menu.new_tab": {
+    "string": "Новая вкладка"
+  },
+  "desktop.menu.new_window": {
+    "string": "Новое окно"
+  },
+  "desktop.menu.object_menu": {
+    "string": "Объект"
+  },
+  "desktop.menu.open_file_browser": {
+    "string": "Открыть браузер файлов"
+  },
+  "desktop.menu.open_file_url_from_clipboard": {
+    "string": "Открыть ссылку на файл из буфера обмена"
+  },
+  "desktop.menu.open_test_websocket_page": {
+    "string": "Открыть тестовую страницу WebSocket"
+  },
+  "desktop.menu.paste": {
+    "string": "Вставить"
+  },
+  "desktop.menu.plugins_menu": {
+    "string": "Плагины"
+  },
+  "desktop.menu.prefer_high_performance_gpu": {
+    "string": "Предпочитать высокопроизводительный графический процессор"
+  },
+  "desktop.menu.preferences": {
+    "string": "Настройки"
+  },
+  "desktop.menu.recently_closed_tabs": {
+    "string": "Недавно закрытые вкладки"
+  },
+  "desktop.menu.redo": {
+    "string": "Повторить"
+  },
+  "desktop.menu.release_notes": {
+    "string": "Что нового"
+  },
+  "desktop.menu.reload_all_tabs": {
+    "string": "Перезагрузить все вкладки"
+  },
+  "desktop.menu.reopen_closed_tab": {
+    "string": "Открыть закрытую вкладку"
+  },
+  "desktop.menu.reset_figma_and_restart": {
+    "string": "Сбросить Figma и перезапустить"
+  },
+  "desktop.menu.restart_and_save_performance_log": {
+    "string": "Перезапустить и сохранить журнал производительности…"
+  },
+  "desktop.menu.save_debug_info": {
+    "string": "Сохранить отладочную информацию…"
+  },
+  "desktop.menu.save_local_copy": {
+    "string": "Сохранить локальную копию…"
+  },
+  "desktop.menu.save_network_log": {
+    "string": "Сохранить сетевой журнал…"
+  },
+  "desktop.menu.save_performance_log": {
+    "string": "Сохранить журнал производительности…"
+  },
+  "desktop.menu.save_performance_log_stop": {
+    "string": "Остановить запись журнала производительности…"
+  },
+  "desktop.menu.save_to_version_history": {
+    "string": "Сохранить в историю версий"
+  },
+  "desktop.menu.select_all": {
+    "string": "Выделить всё"
+  },
+  "desktop.menu.select_next_tab": {
+    "string": "Следующая вкладка"
+  },
+  "desktop.menu.select_previous_tab": {
+    "string": "Предыдущая вкладка"
+  },
+  "desktop.menu.show_figma_in_menu_bar": {
+    "string": "Показывать Figma в строке меню"
+  },
+  "desktop.menu.show_figma_in_system_tray": {
+    "string": "Показывать Figma в области уведомлений"
+  },
+  "desktop.menu.show_version_history": {
+    "string": "Показать историю версий"
+  },
+  "desktop.menu.support_forum": {
+    "string": "Форум поддержки"
+  },
+  "desktop.menu.text_menu": {
+    "string": "Текст"
+  },
+  "desktop.menu.toggle_developer_tools": {
+    "string": "Инструменты разработчика веб-приложения"
+  },
+  "desktop.menu.toggle_full_screen": {
+    "string": "Полноэкранный режим"
+  },
+  "desktop.menu.toggle_internal_developer_tools": {
+    "string": "Инструменты разработчика панели вкладок"
+  },
+  "desktop.menu.toggle_preview_developer_tools": {
+    "string": "Инструменты разработчика предпросмотра в браузере"
+  },
+  "desktop.menu.troubleshooting_menu": {
+    "string": "Диагностика"
+  },
+  "desktop.menu.undo": {
+    "string": "Отменить"
+  },
+  "desktop.menu.vector_menu": {
+    "string": "Вектор"
+  },
+  "desktop.menu.video_tutorials": {
+    "string": "Видеоуроки"
+  },
+  "desktop.menu.view_menu": {
+    "string": "Вид"
+  },
+  "desktop.menu.widgets_menu": {
+    "string": "Виджеты"
+  },
+  "desktop.menu.window_menu": {
+    "string": "Окно"
+  },
+  "desktop.menu.windows_quit": {
+    "string": "Выход"
+  },
+  "desktop.menu.zoom": {
+    "string": "Масштаб"
+  },
+  "desktop.shell.app.edited_time": {
+    "string": "Изменено {time}"
+  },
+  "desktop.shell.app.last_viewed_time": {
+    "string": "Последний просмотр {time}"
+  },
+  "desktop.shell_app.agent_not_running": {
+    "string": "Не запущен"
+  },
+  "desktop.shell_app.agent_running": {
+    "string": "Запущен"
+  },
+  "desktop.shell_app.agent_status": {
+    "string": "Состояние агента: "
+  },
+  "desktop.shell_app.agent_version": {
+    "string": "Версия агента: "
+  },
+  "desktop.shell_app.current_user_presenting": {
+    "string": "Вы в центре внимания"
+  },
+  "desktop.shell_app.env_config.additional_ffs_label": {
+    "string": "Дополнительные флаги функций (необязательно)"
+  },
+  "desktop.shell_app.env_config.backend_custom": {
+    "string": "Свой URL"
+  },
+  "desktop.shell_app.env_config.backend_gov": {
+    "string": "Gov"
+  },
+  "desktop.shell_app.env_config.backend_label": {
+    "string": "Бэкенд"
+  },
+  "desktop.shell_app.env_config.backend_production": {
+    "string": "Production"
+  },
+  "desktop.shell_app.env_config.backend_staging": {
+    "string": "Staging"
+  },
+  "desktop.shell_app.env_config.backend_sycamore": {
+    "string": "Sycamore"
+  },
+  "desktop.shell_app.env_config.coder": {
+    "string": "Coder"
+  },
+  "desktop.shell_app.env_config.coder_workspace_label": {
+    "string": "Рабочая среда Coder"
+  },
+  "desktop.shell_app.env_config.commit_sha_label": {
+    "string": "SHA коммита"
+  },
+  "desktop.shell_app.env_config.devbox": {
+    "string": "Devbox"
+  },
+  "desktop.shell_app.env_config.frontend_canary": {
+    "string": "Canary"
+  },
+  "desktop.shell_app.env_config.frontend_fcp_sha": {
+    "string": "Предпросмотр коммита фронтенда (SHA)"
+  },
+  "desktop.shell_app.env_config.frontend_label": {
+    "string": "Фронтенд"
+  },
+  "desktop.shell_app.env_config.frontend_local": {
+    "string": "Локальный фронтенд"
+  },
+  "desktop.shell_app.env_config.frontend_same_as_backend": {
+    "string": "Как у бэкенда"
+  },
+  "desktop.shell_app.env_config.save_button": {
+    "string": "Сохранить и перезапустить"
+  },
+  "desktop.shell_app.env_config.shell_auto": {
+    "string": "Авто (как у фронтенда)"
+  },
+  "desktop.shell_app.env_config.shell_label": {
+    "string": "Оболочка"
+  },
+  "desktop.shell_app.env_config.shell_local": {
+    "string": "Локальная оболочка"
+  },
+  "desktop.shell_app.env_config.shell_packaged": {
+    "string": "Собранная (сборка на диске)"
+  },
+  "desktop.shell_app.error_tab.403_forbidden.description": {
+    "string": "Обратитесь за помощью к владельцу, администратору или в поддержку."
+  },
+  "desktop.shell_app.error_tab.403_forbidden.title": {
+    "string": "Нет доступа к этому ресурсу"
+  },
+  "desktop.shell_app.error_tab.404_not_found.description": {
+    "string": "Если вы ожидали увидеть здесь файл, возможно, у вас нет прав на доступ к нему. Попросите владельца изменить права доступа и повторите попытку."
+  },
+  "desktop.shell_app.error_tab.404_not_found.title": {
+    "string": "Не найдено ({statusCode})"
+  },
+  "desktop.shell_app.error_tab.407_authentication_required.description": {
+    "string": "Обнаружен прокси-сервер, требующий аутентификации. Пройдите аутентификацию на этом прокси или обратитесь к сетевому администратору."
+  },
+  "desktop.shell_app.error_tab.407_authentication_required.title": {
+    "string": "Требуется аутентификация ({statusCode})"
+  },
+  "desktop.shell_app.error_tab.502_temporary_outage.description": {
+    "string": "На сервере Figma временный сбой."
+  },
+  "desktop.shell_app.error_tab.503_temporary_outage.description": {
+    "string": "Сервер Figma отключён на техническое обслуживание."
+  },
+  "desktop.shell_app.error_tab.connection_error.description": {
+    "string": "Возможно, ваш компьютер не подключён к сети или на сервере Figma возникли проблемы."
+  },
+  "desktop.shell_app.error_tab.connection_error.title": {
+    "string": "Ошибка подключения: {errorCode}"
+  },
+  "desktop.shell_app.error_tab.crash.close_tab_button": {
+    "string": "Закрыть вкладку"
+  },
+  "desktop.shell_app.error_tab.crash.description": {
+    "string": "Возможно, поможет перезагрузка Figma."
+  },
+  "desktop.shell_app.error_tab.crash.reload_button": {
+    "string": "Перезагрузить"
+  },
+  "desktop.shell_app.error_tab.crash.title": {
+    "string": "Что-то пошло не так"
+  },
+  "desktop.shell_app.error_tab.error_code": {
+    "string": "Код ошибки: {errorCode}"
+  },
+  "desktop.shell_app.error_tab.figma_will_automatically_try_to_reconnect": {
+    "string": "Figma автоматически попробует подключиться заново."
+  },
+  "desktop.shell_app.error_tab.generic_server_error.description": {
+    "string": "На сервере Figma произошла внутренняя ошибка."
+  },
+  "desktop.shell_app.error_tab.generic_server_error.title": {
+    "string": "Ошибка сервера ({statusCode})"
+  },
+  "desktop.shell_app.error_tab.reason_crashed": {
+    "string": "Причина: сбой"
+  },
+  "desktop.shell_app.error_tab.temporary_outage.title": {
+    "string": "Временный сбой ({statusCode})"
+  },
+  "desktop.shell_app.error_tab.try_again_button": {
+    "string": "Повторить"
+  },
+  "desktop.shell_app.error_tab.visit_help_page_or_contact_support": {
+    "string": "За помощью зайдите на {helpPageUrl} или напишите на {supportEmail}."
+  },
+  "desktop.shell_app.modal_cancel": {
+    "string": "Отмена"
+  },
+  "desktop.shell_app.modal_confirm": {
+    "string": "Подтвердить"
+  },
+  "desktop.shell_app.new_tab_menu.new_file": {
+    "string": "Новый файл"
+  },
+  "desktop.shell_app.open_and_recently_closed_tabs.empty_message": {
+    "string": "Здесь появятся ваши открытые и недавно закрытые вкладки"
+  },
+  "desktop.shell_app.open_and_recently_closed_tabs.no_matches": {
+    "string": "Ничего не найдено"
+  },
+  "desktop.shell_app.open_and_recently_closed_tabs.search_placeholder": {
+    "string": "Поиск по вкладкам"
+  },
+  "desktop.shell_app.open_and_recently_closed_tabs.title": {
+    "string": "Открытые и недавно закрытые вкладки"
+  },
+  "desktop.shell_app.open_tabs.close_tab": {
+    "string": "Закрыть вкладку {tabTitle}"
+  },
+  "desktop.shell_app.open_tabs.mute_tab": {
+    "string": "Отключить звук вкладки {tabTitle}"
+  },
+  "desktop.shell_app.open_tabs.title": {
+    "string": "Вкладки в этом окне"
+  },
+  "desktop.shell_app.open_tabs_in_other_windows.section": {
+    "string": "Вкладки в окне {windowIndex}"
+  },
+  "desktop.shell_app.parsed_fonts": {
+    "string": "Обработано шрифтов: "
+  },
+  "desktop.shell_app.recently_closed_tabs.title": {
+    "string": "Недавно закрытые вкладки"
+  },
+  "desktop.shell_app.restart_agent": {
+    "string": "Перезапустить агента"
+  },
+  "desktop.shell_app.restarting_agent": {
+    "string": "Перезапуск…"
+  },
+  "desktop.shell_app.tab_bar.chat_status_error": {
+    "string": "Не удалось получить ответ"
+  },
+  "desktop.shell_app.tab_bar.chat_status_new_response": {
+    "string": "Новый ответ"
+  },
+  "desktop.shell_app.tab_bar.chat_status_working": {
+    "string": "Генерация ответа"
+  },
+  "desktop.shell_app.tab_bar.close_button.label": {
+    "string": "Закрыть"
+  },
+  "desktop.shell_app.tab_bar.community_tab.label": {
+    "string": "Сообщество"
+  },
+  "desktop.shell_app.tab_bar.community_tab.tooltip": {
+    "string": "Figma Community"
+  },
+  "desktop.shell_app.tab_bar.factory_tab.label": {
+    "string": "Вы в среде staging"
+  },
+  "desktop.shell_app.tab_bar.home_tab.label": {
+    "string": "Главная"
+  },
+  "desktop.shell_app.tab_bar.label": {
+    "string": "Панель вкладок"
+  },
+  "desktop.shell_app.tab_bar.maximize_button.label": {
+    "string": "Развернуть"
+  },
+  "desktop.shell_app.tab_bar.menu_button.label": {
+    "string": "Меню"
+  },
+  "desktop.shell_app.tab_bar.minimize_button.label": {
+    "string": "Свернуть"
+  },
+  "desktop.shell_app.tab_bar.pinned_split_tab_group_label": {
+    "string": "Закреплённая группа разделённых вкладок: {tab1}, {tab2}"
+  },
+  "desktop.shell_app.tab_bar.pinned_split_tab_label": {
+    "string": "Закреплённая разделённая вкладка: {tabTitle}"
+  },
+  "desktop.shell_app.tab_bar.pinned_tab_label": {
+    "string": "Закреплённая вкладка: {tabTitle}"
+  },
+  "desktop.shell_app.tab_bar.split_tab_group_label": {
+    "string": "Группа разделённых вкладок: {tab1}, {tab2}"
+  },
+  "desktop.shell_app.tab_bar.split_tab_label": {
+    "string": "Разделённая вкладка: {tabTitle}"
+  },
+  "desktop.shell_app.tab_bar.tab_close_button.label": {
+    "string": "Закрыть вкладку"
+  },
+  "desktop.shell_app.tab_bar.tab_mute_button.label": {
+    "string": "Отключить звук вкладки"
+  },
+  "desktop.shell_app.tab_bar.update_button.label": {
+    "string": "Обновить"
+  },
+  "desktop.shell_app.tab_error.label": {
+    "string": "Ошибка вкладки"
+  },
+  "desktop.shell_app.tab_groups.context_menu.color_blue": {
+    "string": "Синий"
+  },
+  "desktop.shell_app.tab_groups.context_menu.color_green": {
+    "string": "Зелёный"
+  },
+  "desktop.shell_app.tab_groups.context_menu.color_grey": {
+    "string": "Серый"
+  },
+  "desktop.shell_app.tab_groups.context_menu.color_persimmon": {
+    "string": "Оранжевый"
+  },
+  "desktop.shell_app.tab_groups.context_menu.color_pink": {
+    "string": "Розовый"
+  },
+  "desktop.shell_app.tab_groups.context_menu.color_purple": {
+    "string": "Фиолетовый"
+  },
+  "desktop.shell_app.tab_groups.context_menu.color_red": {
+    "string": "Красный"
+  },
+  "desktop.shell_app.tab_groups.context_menu.color_yellow": {
+    "string": "Жёлтый"
+  },
+  "desktop.shell_app.tab_groups.context_menu.delete_group": {
+    "string": "Удалить группу"
+  },
+  "desktop.shell_app.tab_groups.context_menu.edit_group_name": {
+    "string": "Изменить название группы"
+  },
+  "desktop.shell_app.tab_groups.context_menu.group_color": {
+    "string": "Цвет группы"
+  },
+  "desktop.shell_app.tab_groups.context_menu.ungroup": {
+    "string": "Разгруппировать"
+  },
+  "desktop.shell_app.tab_preview.memory_freed": {
+    "string": "Вкладка выгружена: освобождено {memory} МБ"
+  },
+  "desktop.shell_app.tab_preview.memory_freed_GB": {
+    "string": "Вкладка выгружена: освобождено {memory} ГБ"
+  },
+  "desktop.shell_app.tab_preview.memory_usage": {
+    "string": "Использование памяти: {memory} МБ"
+  },
+  "desktop.shell_app.tab_preview.memory_usage_GB": {
+    "string": "Использование памяти: {memory} ГБ"
+  },
+  "desktop.shell_app.time_ago.days": {
+    "string": "{numDays, plural, =1 {вчера} one {{numDays} день назад} few {{numDays} дня назад} many {{numDays} дней назад} other {{numDays} дня назад}}"
+  },
+  "desktop.shell_app.time_ago.hours": {
+    "string": "{numHours, plural, one {{numHours} час назад} few {{numHours} часа назад} many {{numHours} часов назад} other {{numHours} часа назад}}"
+  },
+  "desktop.shell_app.time_ago.minutes": {
+    "string": "{numMinutes, plural, one {{numMinutes} минуту назад} few {{numMinutes} минуты назад} many {{numMinutes} минут назад} other {{numMinutes} минуты назад}}"
+  },
+  "desktop.shell_app.time_ago.months": {
+    "string": "{numMonths, plural, =1 {в прошлом месяце} one {{numMonths} месяц назад} few {{numMonths} месяца назад} many {{numMonths} месяцев назад} other {{numMonths} месяца назад}}"
+  },
+  "desktop.shell_app.time_ago.seconds": {
+    "string": "{numSeconds, plural, one {{numSeconds} секунду назад} few {{numSeconds} секунды назад} many {{numSeconds} секунд назад} other {{numSeconds} секунды назад}}"
+  },
+  "desktop.shell_app.time_ago.years": {
+    "string": "{numYears, plural, =1 {в прошлом году} one {{numYears} год назад} few {{numYears} года назад} many {{numYears} лет назад} other {{numYears} года назад}}"
+  },
+  "desktop.shell_app.user_at_mentioned_you": {
+    "string": "Упоминание от {handle}"
+  },
+  "desktop.shell_app.user_presenting": {
+    "string": "В центре внимания: {handle}"
+  },
+  "desktop.tab_context_menu.add_to_tab_group": {
+    "string": "Добавить в группу вкладок"
+  },
+  "desktop.tab_context_menu.close_all_tabs": {
+    "string": "Закрыть все вкладки"
+  },
+  "desktop.tab_context_menu.close_other_tabs": {
+    "string": "Закрыть другие вкладки"
+  },
+  "desktop.tab_context_menu.close_tab": {
+    "string": "Закрыть"
+  },
+  "desktop.tab_context_menu.close_tab_group": {
+    "string": "Закрыть группу вкладок"
+  },
+  "desktop.tab_context_menu.copy_link": {
+    "string": "Копировать ссылку"
+  },
+  "desktop.tab_context_menu.move_to_another_window": {
+    "string": "Переместить в другое окно"
+  },
+  "desktop.tab_context_menu.move_to_new_window": {
+    "string": "Переместить в новое окно"
+  },
+  "desktop.tab_context_menu.new_group_name": {
+    "string": "Группа {number}"
+  },
+  "desktop.tab_context_menu.new_tab_group": {
+    "string": "Новая группа вкладок"
+  },
+  "desktop.tab_context_menu.new_window": {
+    "string": "Новое окно"
+  },
+  "desktop.tab_context_menu.open_in_browser": {
+    "string": "Открыть в браузере"
+  },
+  "desktop.tab_context_menu.open_in_split_tab": {
+    "string": "Открыть в разделённой вкладке"
+  },
+  "desktop.tab_context_menu.other_window": {
+    "string": "{numOtherTabs, plural, =1 {{tabName} и ещё # вкладка} one {{tabName} и ещё # вкладка} few {{tabName} и ещё # вкладки} many {{tabName} и ещё # вкладок} other {{tabName} и ещё # вкладки}}"
+  },
+  "desktop.tab_context_menu.pin_tab": {
+    "string": "Закрепить"
+  },
+  "desktop.tab_context_menu.reload_tab": {
+    "string": "Перезагрузить"
+  },
+  "desktop.tab_context_menu.remove_from_tab_group": {
+    "string": "Убрать из группы вкладок"
+  },
+  "desktop.tab_context_menu.rename": {
+    "string": "Переименовать файл"
+  },
+  "desktop.tab_context_menu.separate_split_tabs": {
+    "string": "Разделить вкладки"
+  },
+  "desktop.tab_context_menu.show_icons": {
+    "string": "Показывать значки"
+  },
+  "desktop.tab_context_menu.unpin_tab": {
+    "string": "Открепить"
+  },
+  "desktop.tabs.community": {
+    "string": "{pluginName} (Сообщество)"
+  },
+  "desktop.tabs.untitled": {
+    "string": "Без названия"
+  }
+}

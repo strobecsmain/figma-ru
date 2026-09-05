@@ -1,0 +1,16 @@
+{
+  "name": "figma-ru",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Russian localisation patch for the Figma desktop app",
+  "scripts": {
+    "install-patch": "node install.js",
+    "uninstall-patch": "node uninstall.js",
+    "validate": "node tools/validate-i18n.js",
+    "build-layer": "node tools/build-editor-layer.js",
+    "installs": "node tools/find-installs.js"
+  },
+  "devDependencies": {
+    "intl-messageformat": "^10.7.7"
+  }
+}

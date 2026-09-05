@@ -1,0 +1,9 @@
+node_modules/
+
+# Build artefacts: the .exe ships as a release, not in the tree.
+build/
+dist/
+
+# Scratch area holding Figma's own extracted bundle and the English strings
+# pulled out of it — not ours to redistribute, and nothing in the build needs it.
+work/

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figma на русском</title>
+<meta name="description" content="Перевод интерфейса десктопной Figma на русский язык. Одна программа, без установки лишнего, откат в один клик.">
+<meta property="og:title" content="Figma на русском">
+<meta property="og:description" content="Перевод интерфейса десктопной Figma на русский язык. Одна программа, откат в один клик.">
+<meta property="og:image" content="img/editor.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 36'><path fill='%230acf83' d='M6 36a6 6 0 0 0 6-6v-6H6a6 6 0 0 0 0 12z'/><path fill='%23a259ff' d='M0 18a6 6 0 0 1 6-6h6v12H6a6 6 0 0 1-6-6z'/><path fill='%23f24e1e' d='M0 6a6 6 0 0 1 6-6h6v12H6A6 6 0 0 1 0 6z'/><path fill='%23ff7262' d='M12 0h6a6 6 0 0 1 0 12h-6z'/><path fill='%231abcfe' d='M24 18a6 6 0 1 1-12 0 6 6 0 0 1 12 0z'/></svg>">
+<style>
+  :root {
+    --bg: #1e1e1e;
+    --panel: #2c2c2c;
+    --panel-2: #383838;
+    --border: #444;
+    --text: #fff;
+    --dim: #b3b3b3;
+    --faint: #8c8c8c;
+    --blue: #0d99ff;
+    --blue-hi: #0c8ce9;
+    --green: #6fd39b;
+    --yellow: #ffd966;
+    --radius: 8px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.6 Inter, "Segoe UI", -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  a { color: var(--blue); }
+
+  header { padding: 72px 0 40px; text-align: center; }
+  .mark { margin-bottom: 20px; }
+  h1 { font-size: 40px; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 12px; }
+  .lede { color: var(--dim); font-size: 17px; max-width: 560px; margin: 0 auto 28px; }
+
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--blue); color: #fff; text-decoration: none;
+    font-weight: 600; font-size: 16px;
+    padding: 14px 26px; border-radius: var(--radius);
+    transition: background .12s ease;
+  }
+  .cta:hover { background: var(--blue-hi); }
+  .cta-note { color: var(--faint); font-size: 13px; margin-top: 12px; }
+
+  section { padding: 40px 0; }
+  h2 { font-size: 24px; letter-spacing: -0.01em; margin: 0 0 8px; }
+  h2 + .sub { color: var(--faint); margin: 0 0 24px; }
+
+  figure { margin: 0 0 12px; }
+  .shot {
+    display: block; width: 100%; height: auto;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: #111;
+  }
+  figcaption { color: var(--faint); font-size: 13px; margin-top: 10px; text-align: center; }
+
+  .steps { display: grid; gap: 12px; padding: 0; margin: 0; list-style: none; counter-reset: step; }
+  .steps li {
+    background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 18px 16px 56px; position: relative;
+  }
+  .steps li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 16px; top: 16px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--blue); color: #fff;
+    font-size: 13px; font-weight: 600;
+    display: grid; place-items: center;
+  }
+  .steps b { display: block; margin-bottom: 2px; }
+  .steps span { color: var(--dim); font-size: 14px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 15px; }
+  .card p { margin: 0; color: var(--dim); font-size: 14px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--panel-2); }
+  th { color: var(--faint); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+  td:last-child { color: var(--dim); }
+  .ok { color: var(--green); }
+  .partial { color: var(--yellow); }
+
+  .note {
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--yellow);
+    border-radius: var(--radius); padding: 16px 18px; color: var(--dim); font-size: 14px;
+  }
+  .note b { color: var(--text); }
+
+  footer {
+    padding: 40px 0 64px; color: var(--faint); font-size: 13px;
+    border-top: 1px solid var(--panel-2); margin-top: 40px; text-align: center;
+  }
+  code {
+    background: var(--panel-2); padding: 2px 6px; border-radius: 4px;
+    font-family: "Cascadia Mono", Consolas, monospace; font-size: 13px;
+  }
+  @media (max-width: 600px) {
+    h1 { font-size: 30px; }
+    header { padding: 48px 0 28px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <svg class="mark" width="34" height="51" viewBox="0 0 24 36" aria-hidden="true">
+      <path fill="#0acf83" d="M6 36a6 6 0 0 0 6-6v-6H6a6 6 0 0 0 0 12z"/>
+      <path fill="#a259ff" d="M0 18a6 6 0 0 1 6-6h6v12H6a6 6 0 0 1-6-6z"/>
+      <path fill="#f24e1e" d="M0 6a6 6 0 0 1 6-6h6v12H6A6 6 0 0 1 0 6z"/>
+      <path fill="#ff7262" d="M12 0h6a6 6 0 0 1 0 12h-6z"/>
+      <path fill="#1abcfe" d="M24 18a6 6 0 1 1-12 0 6 6 0 0 1 12 0z"/>
+    </svg>
+    <h1>Figma на русском</h1>
+    <p class="lede">
+      Меню, диалоги, панель свойств и тулбар — на русском.
+      Одна программа, ставится в два клика, откат в один.
+    </p>
+    <a class="cta" href="https://github.com/strobecsmain/figma-ru/releases/latest">Скачать для Windows</a>
+    <div class="cta-note">Стабильная Figma и Figma Beta · бесплатно и с открытым кодом</div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <figure>
+      <img class="shot" src="img/editor.png" alt="Панель свойств Figma на русском языке" loading="lazy">
+      <figcaption>Панель свойств: положение, макет, внешний вид, заливка, обводка, эффекты</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Установка</h2>
+    <p class="sub">Ничего дополнительно ставить не нужно.</p>
+    <ol class="steps">
+      <li><b>Скачайте программу</b><span>Один файл со страницы релизов.</span></li>
+      <li><b>Закройте Figma</b><span>Значок Figma Agent в трее закрывать не нужно.</span></li>
+      <li><b>Запустите и нажмите «Установить русский»</b><span>Через несколько секунд открывайте Figma.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <figure>
+      <img class="shot" src="img/installer.png" alt="Окно установщика" loading="lazy" style="max-width:520px;margin:0 auto;">
+      <figcaption>Окно программы: видно, что найдено и что уже переведено</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Меню целиком</h2>
+    <p class="sub">Figma локализует меню сама — патч добавляет русский в её собственную систему перевода.</p>
+    <figure>
+      <img class="shot" src="img/menu.png" alt="Главное меню Figma на русском" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Что переводится</h2>
+    <table>
+      <tr><th>Часть Figma</th><th>Состояние</th></tr>
+      <tr><td>Меню, подменю, контекстные меню вкладок</td><td class="ok">полностью</td></tr>
+      <tr><td>Диалоги, панель вкладок, экраны ошибок</td><td class="ok">полностью</td></tr>
+      <tr><td>Панель свойств, левая панель, тулбар, файловый браузер</td><td class="partial">по словарю, 436 фраз</td></tr>
+      <tr><td>Ваш дизайн на холсте</td><td>не трогается</td></tr>
+      <tr><td>Экраны тарифов, названия плагинов</td><td>остаются английскими</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Безопасно и обратимо</h2>
+    <p class="sub">Чтобы не пришлось верить на слово.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Откат в один клик</h3>
+        <p>Рядом сохраняется копия оригинала. Кнопка «Вернуть английский» возвращает всё как было.</p>
+      </div>
+      <div class="card">
+        <h3>Только файлы Figma</h3>
+        <p>Меняется один файл <code>app.asar</code> внутри папки Figma. Больше ничего.</p>
+      </div>
+      <div class="card">
+        <h3>Без интернета</h3>
+        <p>Программа ничего не скачивает и никуда не отправляет. Всё нужное уже внутри.</p>
+      </div>
+      <div class="card">
+        <h3>Проверка до замены</h3>
+        <p>Новый файл сначала собирается и проверяется целиком. Не прошёл — Figma остаётся нетронутой.</p>
+      </div>
+      <div class="card">
+        <h3>Без прав администратора</h3>
+        <p>Figma живёт в вашей папке. Запускать «от имени администратора» не нужно и вредно.</p>
+      </div>
+      <div class="card">
+        <h3>Открытый код</h3>
+        <p>Весь код на GitHub, включая словари. Можно прочитать и собрать самому.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="note">
+      <b>После обновления Figma перевод пропадает.</b>
+      Figma ставит каждое обновление в новую папку. Запустите программу ещё раз и снова
+      нажмите «Установить русский» — она сама заметит обновление.
+      <br><br>
+      <b>Windows может предупредить о неизвестном издателе.</b>
+      У проекта нет платной подписи разработчика. Нажмите «Подробнее» → «Выполнить в любом случае».
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="https://github.com/strobecsmain/figma-ru">Исходный код на GitHub</a> ·
+    <a href="https://github.com/strobecsmain/figma-ru/blob/main/docs/ARCHITECTURE.md">Как это устроено</a> ·
+    <a href="https://github.com/strobecsmain/figma-ru/issues">Сообщить о проблеме</a>
+    <p>Неофициальный проект. Не связан с Figma, Inc.</p>
+  </div>
+</footer>
+
+</body>
+</html>
