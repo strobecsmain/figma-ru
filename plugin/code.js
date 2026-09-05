@@ -63,13 +63,16 @@ async function loadFonts(spec) {
     if (Array.isArray(node.children)) node.children.forEach(walk);
   })(spec);
 
+  const loaded = new Set();
   for (const style of styles) {
     try {
       await figma.loadFontAsync({ family: 'Inter', style: style });
+      loaded.add(style);
     } catch (e) {
       // A weight the local Inter does not have; Regular is already loaded.
     }
   }
+  return loaded;
 }
 
 // ---------------------------------------------------------------------------
@@ -77,6 +80,30 @@ async function loadFonts(spec) {
 // ---------------------------------------------------------------------------
 
 const ALIGN = { min: 'MIN', start: 'MIN', center: 'CENTER', max: 'MAX', end: 'MAX' };
+const TEXT_ALIGN = {
+  left: 'LEFT',
+  center: 'CENTER',
+  centre: 'CENTER',
+  middle: 'CENTER',
+  right: 'RIGHT',
+  justify: 'JUSTIFIED',
+  justified: 'JUSTIFIED',
+};
+
+// Fonts the current render actually managed to load; the model can ask for a
+// weight the local Inter lacks, and using one that was not loaded throws the
+// moment text is assigned. Set per render by the render handler.
+let loadedFonts = new Set(['Regular']);
+
+// Every node created during the current build. Figma auto-appends new nodes to
+// the page at creation, so a throw partway through would otherwise strand them
+// on the canvas; the render handler removes these if the build fails.
+let created = [];
+
+function track(node) {
+  created.push(node);
+  return node;
+}
 
 function applyCommon(node, spec) {
   if (spec.name) node.name = String(spec.name);
@@ -146,13 +173,12 @@ async function build(spec, parentSpec) {
   const type = String(spec.type || 'frame').toLowerCase();
 
   if (type === 'text') {
-    const node = figma.createText();
-    const weight = WEIGHTS[String(spec.fontWeight || 'regular').toLowerCase()] || 'Regular';
-    try {
-      node.fontName = { family: 'Inter', style: weight };
-    } catch (e) {
-      node.fontName = { family: 'Inter', style: 'Regular' };
-    }
+    const node = track(figma.createText());
+    // Only use a weight that actually loaded — assigning an unloaded font makes
+    // the later `characters` write throw.
+    let weight = WEIGHTS[String(spec.fontWeight || 'regular').toLowerCase()] || 'Regular';
+    if (!loadedFonts.has(weight)) weight = 'Regular';
+    node.fontName = { family: 'Inter', style: weight };
     node.characters = String(spec.text == null ? '' : spec.text);
     if (typeof spec.fontSize === 'number') node.fontSize = spec.fontSize;
     if (typeof spec.lineHeight === 'number') {
@@ -160,16 +186,17 @@ async function build(spec, parentSpec) {
     }
     const color = parseColor(spec.color) || parseColor(spec.fill);
     if (color) node.fills = solid(color);
-    if (spec.textAlign) {
-      node.textAlignHorizontal = String(spec.textAlign).toUpperCase();
-    }
+    // Map to Figma's own enum; a model-supplied value like "middle" or "justify"
+    // would otherwise throw.
+    const align = TEXT_ALIGN[String(spec.textAlign || '').toLowerCase()];
+    if (align) node.textAlignHorizontal = align;
     if (spec.name) node.name = String(spec.name);
     applySizing(node, spec, parentSpec);
     return node;
   }
 
   if (type === 'rect' || type === 'rectangle') {
-    const node = figma.createRectangle();
+    const node = track(figma.createRectangle());
     node.resize(
       typeof spec.width === 'number' ? Math.max(1, spec.width) : 100,
       typeof spec.height === 'number' ? Math.max(1, spec.height) : 100
@@ -180,7 +207,7 @@ async function build(spec, parentSpec) {
   }
 
   if (type === 'ellipse') {
-    const node = figma.createEllipse();
+    const node = track(figma.createEllipse());
     node.resize(
       typeof spec.width === 'number' ? Math.max(1, spec.width) : 100,
       typeof spec.height === 'number' ? Math.max(1, spec.height) : 100
@@ -191,7 +218,7 @@ async function build(spec, parentSpec) {
   }
 
   // Default: a frame, optionally with auto-layout and children.
-  const frame = figma.createFrame();
+  const frame = track(figma.createFrame());
   frame.fills = [];
   applyCommon(frame, spec);
   applyAutoLayout(frame, spec);
@@ -283,15 +310,32 @@ figma.ui.onmessage = async (message) => {
         return;
       }
 
-      await loadFonts(spec);
-      const node = await build(spec, null);
-      figma.currentPage.appendChild(node);
-      placeOnCanvas(node);
-      figma.currentPage.selection = [node];
-      figma.viewport.scrollAndZoomIntoView([node]);
+      // New nodes auto-append to the page as they are created, so a throw
+      // partway through would strand them. Track everything and roll back on
+      // failure, so a bad model response leaves the canvas exactly as it was.
+      created = [];
+      try {
+        loadedFonts = await loadFonts(spec);
+        const node = await build(spec, null);
+        figma.currentPage.appendChild(node);
+        placeOnCanvas(node);
+        figma.currentPage.selection = [node];
+        figma.viewport.scrollAndZoomIntoView([node]);
 
-      figma.ui.postMessage({ type: 'rendered', name: node.name });
-      figma.notify('Готово: ' + node.name);
+        figma.ui.postMessage({ type: 'rendered', name: node.name });
+        figma.notify('Готово: ' + node.name);
+      } catch (buildError) {
+        for (const node of created) {
+          try {
+            if (!node.removed) node.remove();
+          } catch (e) {
+            /* already gone */
+          }
+        }
+        throw buildError;
+      } finally {
+        created = [];
+      }
       return;
     }
 

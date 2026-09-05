@@ -11,6 +11,7 @@
     "installs": "node tools/find-installs.js"
   },
   "devDependencies": {
-    "intl-messageformat": "^10.7.7"
+    "intl-messageformat": "^10.7.7",
+    "terser": "^5.51.2"
   }
 }

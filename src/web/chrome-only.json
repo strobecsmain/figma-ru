@@ -8,5 +8,10 @@
   "Name",
   "Style",
   "Image",
-  "Video"
+  "Video",
+  "Draw",
+  "Crop",
+  "Motion",
+  "Plugin",
+  "Widget"
 ]

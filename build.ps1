@@ -21,17 +21,22 @@ Write-Host 'Готовлю встраиваемые файлы…'
 $node = (Get-Command node.exe -ErrorAction SilentlyContinue)
 if (-not $node) { throw 'Для сборки нужен Node.js (он готовит словари). Пользователям exe он не нужен.' }
 
-# The shell dictionary goes in minified: the archive has a fixed byte budget.
+# The shell dictionary goes in minified, and so does the editor layer: the
+# archive has a fixed byte budget, and every byte saved is a byte that need not
+# be taken from a shipped language dictionary. Both minifications are build-time
+# only — the shipped artefact is the .exe.
 & node.exe -e @"
-const fs = require('fs');
-const path = require('path');
-const dict = JSON.parse(fs.readFileSync('src/i18n/ru.json', 'utf8'));
-fs.writeFileSync('build/ru.json', JSON.stringify(dict), 'utf8');
-const { buildEditorLayer } = require('./tools/build-editor-layer');
-const layer = buildEditorLayer();
-fs.writeFileSync('build/editor-layer.js', layer.code, 'utf8');
-console.log('  словарь оболочки: ' + Object.keys(dict).length + ' строк');
-console.log('  слой редактора:   ' + layer.phraseCount + ' фраз');
+(async () => {
+  const fs = require('fs');
+  const dict = JSON.parse(fs.readFileSync('src/i18n/ru.json', 'utf8'));
+  fs.writeFileSync('build/ru.json', JSON.stringify(dict), 'utf8');
+  const { buildEditorLayer } = require('./tools/build-editor-layer');
+  const layer = await buildEditorLayer();
+  fs.writeFileSync('build/editor-layer.js', layer.code, 'utf8');
+  console.log('  словарь оболочки: ' + Object.keys(dict).length + ' строк');
+  console.log('  слой редактора:   ' + layer.phraseCount + ' фраз' + (layer.minified ? ', сжат' : ', НЕ сжат'));
+  if (!layer.minified) console.error('  ! terser не найден — слой не сжат, места может не хватить');
+})().catch((e) => { console.error(e); process.exit(1); });
 "@
 if ($LASTEXITCODE -ne 0) { throw 'Не удалось подготовить встраиваемые файлы.' }
 

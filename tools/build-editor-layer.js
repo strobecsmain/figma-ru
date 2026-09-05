@@ -46,7 +46,36 @@ function findDuplicateKeys(jsonText) {
   return duplicates;
 }
 
-function buildEditorLayer() {
+/**
+ * Minify the assembled layer with terser when it is available.
+ *
+ * The archive is size-capped, so shipping the layer as readable commented source
+ * wastes budget that would otherwise cost a shipped language dictionary. terser
+ * is a build-time dependency only — end users get the .exe — so if it is missing
+ * (e.g. a checkout without `npm install`) the layer is shipped unminified rather
+ * than failing the build.
+ *
+ * The `figma-ru:` marker comments MUST survive: tools/verify.js and
+ * tools/pristine.js detect the layer by them.
+ */
+async function minify(code) {
+  let terser;
+  try {
+    terser = require('terser');
+  } catch (e) {
+    return { code, minified: false };
+  }
+  const result = await terser.minify(code, {
+    compress: true,
+    mangle: true,
+    format: { comments: /figma-ru/ },
+  });
+  if (!result.code) throw new Error('terser produced no output');
+  return { code: result.code, minified: true };
+}
+
+async function buildEditorLayer(options) {
+  const opts = options || {};
   const jsonText = fs.readFileSync(PHRASES, 'utf8');
 
   const duplicates = findDuplicateKeys(jsonText);
@@ -122,22 +151,32 @@ function buildEditorLayer() {
   // without touching the other.
   const rail = fs.readFileSync(RAIL, 'utf8');
 
-  // The host preload is not guaranteed to end in a semicolon, and these files
-  // start with a comment followed by `(`. Without the leading `;` they would
-  // splice into a call expression.
+  let assembled = `${code}\n;\n${rail}`;
+  let minified = false;
+  if (opts.minify !== false) {
+    const result = await minify(assembled);
+    assembled = result.code;
+    minified = result.minified;
+  }
+
+  // The host preload is not guaranteed to end in a semicolon, and this file
+  // starts with a comment (or, minified, with code). The leading `;` keeps the
+  // two from splicing into a call expression either way.
   return {
-    code: `;\n${code}\n;\n${rail}`,
+    code: `;\n${assembled}`,
     phraseCount: keys.size,
     chromeOnlyCount: chromeOnly.length,
+    minified,
   };
 }
 
 if (require.main === module) {
-  const { code, phraseCount, chromeOnlyCount } = buildEditorLayer();
-  console.log(
-    `editor layer: ${phraseCount} phrases (${chromeOnlyCount} chrome-only), ` +
-      `${(code.length / 1024).toFixed(1)} KB`
-  );
+  buildEditorLayer().then(({ code, phraseCount, chromeOnlyCount, minified }) => {
+    console.log(
+      `editor layer: ${phraseCount} phrases (${chromeOnlyCount} chrome-only), ` +
+        `${(code.length / 1024).toFixed(1)} KB${minified ? ' minified' : ' (not minified)'}`
+    );
+  });
 }
 
 module.exports = { buildEditorLayer, findDuplicateKeys, normalise };

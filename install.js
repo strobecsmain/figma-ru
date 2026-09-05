@@ -88,7 +88,7 @@ function prepareBackup(install) {
   return install.backup;
 }
 
-function patchInstall(install, translations) {
+async function patchInstall(install, translations) {
   const source = prepareBackup(install);
   const targetSize = fs.statSync(source).size;
 
@@ -157,7 +157,7 @@ function patchInstall(install, translations) {
       if (!fs.existsSync(preloadPath)) {
         console.log('  ! не найден preload веб-вида — интерфейс редактора не будет переведён');
       } else {
-        layer = buildEditorLayer();
+        layer = await buildEditorLayer();
         console.log(
           `  слой редактора: ${layer.phraseCount} фраз, ${(layer.code.length / 1024).toFixed(1)} КБ`
         );
@@ -271,7 +271,7 @@ function reportUpdate(all) {
   }
 }
 
-function main() {
+async function main() {
   if (!fs.existsSync(DICT)) {
     console.error(`Не найден файл перевода: ${DICT}`);
     process.exit(1);
@@ -308,7 +308,7 @@ function main() {
   for (const install of installs) {
     console.log(`\n${install.product} ${install.version}`);
     try {
-      if (patchInstall(install, translations)) ok++;
+      if (await patchInstall(install, translations)) ok++;
     } catch (e) {
       console.error(`  НЕ УДАЛОСЬ: ${e.message}`);
       console.error('  установленная Figma осталась без изменений');
@@ -327,4 +327,4 @@ function main() {
   process.exit(ok === installs.length ? 0 : 1);
 }
 
-main();
+main().catch((e) => { console.error(e); process.exit(1); });
