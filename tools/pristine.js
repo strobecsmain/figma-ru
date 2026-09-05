@@ -7,7 +7,6 @@
 // check guards the restore side, so a truncated or patched backup is never
 // copied over a working archive.
 const { LAYER_MARKER } = require('./verify');
-const { LOCALE_FUNNEL } = require('./patch-main');
 const asar = require('./asar');
 
 /**
@@ -43,11 +42,16 @@ function inspectArchive(archivePath, locale = 'ru') {
     reasons.push('в нём уже есть слой перевода редактора');
   }
 
+  // Keyed on traces this patch leaves behind, never on whether the locale funnel
+  // still matches. Those are not the same question: a Figma build whose minified
+  // code is shaped differently is pristine but unrecognised, and rejecting it
+  // here would abort the whole install — including the editor layer, which does
+  // not depend on that code — and advise reinstalling Figma, which would
+  // reproduce the very same shape.
   const main = readFile('main.js');
   if (!main) reasons.push('в нём нет main.js');
-  else if (!LOCALE_FUNNEL.test(main.toString('utf8'))) {
-    // Either already pinned by this patch, or a build shape we do not know.
-    reasons.push('функция выбора языка уже изменена');
+  else if (new RegExp(`function\\s+[A-Za-z_$][\\w$]*\\s*\\(\\s*[A-Za-z_$][\\w$]*\\s*\\)\\s*\\{\\s*return\\s*"${locale}"\\s*\\}`).test(main.toString('utf8'))) {
+    reasons.push('язык в нём уже закреплён этим патчем');
   }
 
   return { stock: reasons.length === 0, reasons };
