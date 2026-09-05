@@ -220,8 +220,27 @@
     throw new Error('Модель ответила не JSON-ом.');
   }
 
+  // A plain fetch to a stalled server never settles — the socket connects but no
+  // response arrives — which would leave `busy` stuck and the Create button
+  // disabled until the plugin is reopened. Abort after a timeout so the existing
+  // .catch path clears the flag.
+  function fetchWithTimeout(url, options) {
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 90000);
+    options.signal = controller.signal;
+    return fetch(url, options)
+      .then(
+        function (response) { clearTimeout(timer); return response; },
+        function (e) {
+          clearTimeout(timer);
+          if (e && e.name === 'AbortError') throw new Error('Модель не ответила за 90 секунд. Попробуйте ещё раз.');
+          throw new Error('Не удалось связаться с провайдером. Проверьте интернет.');
+        }
+      );
+  }
+
   function callAnthropic(userText) {
-    return fetch('https://api.anthropic.com/v1/messages', {
+    return fetchWithTimeout('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -245,7 +264,7 @@
   }
 
   function callOpenAI(userText) {
-    return fetch('https://api.openai.com/v1/chat/completions', {
+    return fetchWithTimeout('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
