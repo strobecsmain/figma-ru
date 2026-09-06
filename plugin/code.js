@@ -12,7 +12,12 @@
 
 const SETTINGS_KEY = 'figma-ru-assistant:settings';
 
-figma.showUI(__html__, { width: 420, height: 620, themeColors: true });
+// Figma has no API to dock a plugin panel into the right sidebar in design mode
+// (that is reserved for Figma's own panels; only Dev Mode docks plugins). The
+// next best thing is a narrow, tall window that sits like a side strip instead
+// of covering half the canvas. Figma persists the window's size and position
+// per plugin, so once the user drags it to the edge it reopens there.
+figma.showUI(__html__, { width: 340, height: 720, themeColors: true, title: 'Свой ассистент' });
 
 // ---------------------------------------------------------------------------
 // Colours
